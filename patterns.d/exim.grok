@@ -1,0 +1,3 @@
+EXIM_SMTP SMTP connection from( %{GREEDYDATA:exim_url})? \[%{IP:exim_ip_address}\]:%{INT:exim_port}( %{GREEDYDATA:exim_message})?
+EXIM_INCOMING (%{GREEDYDATA:exim_message_id} )?H=(%{GREEDYDATA:exim_url} )?\[%{IP:exim_ip_address}\]:%{INT:exim_port} %{GREEDYDATA:exim_message}
+EXIM %{TIMESTAMP_ISO8601} %{EXIM_SMTP}|%{EXIM_INCOMING}
