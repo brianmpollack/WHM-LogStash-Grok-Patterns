@@ -1,1 +1,1 @@
-SYSLOG_APACHE %{SYSLOGTIMESTAMP} %{WORD:apache_host} %{WORD}: %{HOSTNAME:apache_domain}:%{INT:apache_port} %{COMBINEDAPACHELOG}
+APACHE_SYSLOG %{SYSLOGTIMESTAMP} %{WORD:apache_host} %{WORD}: %{HOSTNAME:apache_domain}:%{INT:apache_port} %{COMBINEDAPACHELOG}
