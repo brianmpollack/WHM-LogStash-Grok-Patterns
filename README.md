@@ -13,6 +13,7 @@ Grok filters for my logstash setup. I am pulling logs from WHM/CPanel.
 
 **DOVECOT_GENERIC:** Jun 11 03:25:06 web1 dovecot: lmtp(25929): Connect from local
 
+**EXIM:** [The exim docs](http://www.exim.org/exim-html-current/doc/html/spec_html/ch-log_files.html) are a great reference with log examples. The exim logs span multiple lines and are very confusing at first to understand.
 
 ## Installation
 
