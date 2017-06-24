@@ -29,7 +29,6 @@ def test_dovecot_disconnect():
                             '../patterns.d')
     grok_output = Grok('%{SYSLOGBASE} %{DOVECOT_DISCONNECT}', \
                     custom_patterns_dir=patterns_directory).match(log_entry)
-    print grok_output
     assert grok_output['program'] == 'dovecot'
     assert grok_output['dovecot_protocol'] == 'imap'
     assert grok_output['timestamp'] == 'Jun 24 15:06:19'
@@ -37,3 +36,18 @@ def test_dovecot_disconnect():
     assert grok_output['dovecot_user'] == 'john@example.com'
     assert grok_output['dovecot_bytes_in'] == '93'
     assert grok_output['dovecot_bytes_out'] == '1020'
+
+def test_dovecot_lmtp():
+    """Test LMTP (local message transfer protocol)"""
+    log_entry = 'Jun 11 03:25:07 web1 dovecot: lmtp(user@domain.com): '\
+                'msgid=<E1dJxFC-0006k0-Pw@domain.com>: saved mail to INBOX'
+    patterns_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), \
+                            '../patterns.d')
+    grok_output = Grok('%{SYSLOGBASE} %{DOVECOT_LMTP}', \
+                    custom_patterns_dir=patterns_directory).match(log_entry)
+    assert grok_output['program'] == 'dovecot'
+    assert grok_output['dovecot_protocol'] == 'lmtp'
+    assert grok_output['timestamp'] == 'Jun 11 03:25:07'
+    assert grok_output['dovecot_message_id'] == 'E1dJxFC-0006k0-Pw@domain.com'
+    assert grok_output['dovecot_user'] == 'user@domain.com'
+    assert grok_output['dovecot_action'] == 'saved mail to INBOX'

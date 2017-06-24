@@ -21,7 +21,7 @@ I use pytest to test the grok patterns. To run the tests, run the command ``pyth
 ### Dovecot Examples
 **DOVECOT_LOGIN:** Jun 11 03:25:04 web1 dovecot: imap-login: Login: user=<user@domain.com>, method=PLAIN, rip=71.237.182.194, lip=192.168.78.10, mpid=25876, TLS, session=<euPpGapR8M9H7bbC>
 
-**DOVECOT_DISCONNECT:** Jun 11 03:25:07 web1 dovecot: imap(user@domain.com): Connection closed (STATUS finished 1.521 secs ago) in=636, out=7911, bytes=636/7911
+**DOVECOT_DISCONNECT:** Jun 24 15:06:19 web1 dovecot: imap(john@example.com): Logged out in=93, out=1020, bytes=93/1020
 
 **DOVECOT_LMTP:** Jun 11 03:25:07 web1 dovecot: lmtp(user@domain.com): msgid=<E1dJxFC-0006k0-Pw@domain.com>: saved mail to INBOX
 
