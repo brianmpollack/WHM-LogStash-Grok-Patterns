@@ -11,7 +11,6 @@ def test_dovecot_login():
                             '../patterns.d')
     grok_output = Grok('%{SYSLOGBASE} %{DOVECOT_LOGIN}', \
                     custom_patterns_dir=patterns_directory).match(log_entry)
-    print grok_output
     assert grok_output['program'] == 'dovecot'
     assert grok_output['dovecot_protocol'] == 'imap'
     assert grok_output['timestamp'] == 'Jun 24 15:06:14'
@@ -21,3 +20,20 @@ def test_dovecot_login():
     assert grok_output['dovecot_client_ip'] == '192.168.1.1'
     assert grok_output['dovecot_server_ip'] == '192.168.1.2'
     assert grok_output['dovecot_session'] == 'sessionid'
+
+def test_dovecot_disconnect():
+    """Test POP or IMAP disconnect"""
+    log_entry = 'Jun 24 15:06:19 web1 dovecot: imap(john@example.com): '\
+                'Logged out in=93, out=1020, bytes=93/1020'
+    patterns_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), \
+                            '../patterns.d')
+    grok_output = Grok('%{SYSLOGBASE} %{DOVECOT_DISCONNECT}', \
+                    custom_patterns_dir=patterns_directory).match(log_entry)
+    print grok_output
+    assert grok_output['program'] == 'dovecot'
+    assert grok_output['dovecot_protocol'] == 'imap'
+    assert grok_output['timestamp'] == 'Jun 24 15:06:19'
+    assert grok_output['dovecot_reason'] == 'Logged out'
+    assert grok_output['dovecot_user'] == 'john@example.com'
+    assert grok_output['dovecot_bytes_in'] == '93'
+    assert grok_output['dovecot_bytes_out'] == '1020'

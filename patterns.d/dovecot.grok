@@ -1,5 +1,5 @@
 DOVECOT_LOGIN %{WORD:dovecot_protocol}-login: %{DATA:dovecot_login_result}: user=<%{DATA:dovecot_user}>,( method=%{WORD:dovecot_auth_method},)? rip=%{IP:dovecot_client_ip}, lip=%{IP:dovecot_server_ip},( mpid=%{INT:dovecot_pid},)?( %{WORD},)? session=<%{GREEDYDATA:dovecot_session}>
-DOVECOT_DISCONNECT %{WORD:protocol}\(%{GREEDYDATA:dovecot_user}\): %{GREEDYDATA:dovecot_reason} in=%{INT:dovecot_bytes_in}, out=%{INT:dovecot_bytes_out}
+DOVECOT_DISCONNECT %{WORD:dovecot_protocol}\(%{GREEDYDATA:dovecot_user}\): %{GREEDYDATA:dovecot_reason} in=%{INT:dovecot_bytes_in}, out=%{INT:dovecot_bytes_out}
 DOVECOT_LMTP %{WORD:protocol}\(%{GREEDYDATA:dovecot_user}\): msgid=<%{GREEDYDATA:dovecot_message_id}>: %{GREEDYDATA:dovecot_action}
 DOVECOT_GENERIC %{DATA:dovecot_process}: %{GREEDYDATA:dovecot_message}
 DOVECOT %{DOVECOT_LOGIN}|%{DOVECOT_DISCONNECT}|%{DOVECOT_LMTP}|%{DOVECOT_GENERIC}
