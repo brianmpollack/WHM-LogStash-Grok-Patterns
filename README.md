@@ -27,4 +27,13 @@ I use pytest to test the grok patterns. To run the tests, run the command ``pyth
 
 **DOVECOT_GENERIC:** Jun 11 03:25:06 web1 dovecot: lmtp(25929): Connect from local
 
-**EXIM:** [The exim docs](http://www.exim.org/exim-html-current/doc/html/spec_html/ch-log_files.html) are a great reference with log examples. The exim logs span multiple lines and are very confusing at first to understand.
+### Exim Examples
+[The exim docs](http://www.exim.org/exim-html-current/doc/html/spec_html/ch-log_files.html) are a great reference with log examples. The exim logs span multiple lines and are very confusing at first to understand.
+
+**EXIM_SMTP:** 2017-06-24 15:31:43 SMTP connection from mail.example.com [192.168.1.1]:46890 closed by QUIT
+
+**EXIM_RECEIVED:** 2017-06-24 15:41:05 1dOqvZ-0002HB-Ob <= Brain_Power_101@pour.brainpowercompletely.us H=in3f.electric.net [72.35.12.46]:47218 P=esmtps X=TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256 CV=no S=6297 T="Millionaires, CEOs, Entrepreneurs are using brain pills to boost intelligence." for user@localdomain.com
+
+**EXIM_DELIVERY** 2017-06-24 15:41:05 1dOqvZ-0002HB-Ob => localuser <localuser@localdomain.com> R=virtual_user T=dovecot_virtual_delivery C="250 2.0.0 <localuser@localdomain.com> AVo8MlHATlm4HgAAhX93jg Saved"
+
+**EXIM_FAILURE:** 2017-06-18 04:03:59 1dMVBf-0007Wx-F5 ** nobody@domain.com R=virtual_aliases: No Such User Here

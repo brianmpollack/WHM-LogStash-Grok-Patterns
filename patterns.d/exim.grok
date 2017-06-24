@@ -1,12 +1,6 @@
 EXIM_SMTP SMTP connection from( %{GREEDYDATA:exim_url})? \[%{IP:exim_ip_address}\]:%{INT:exim_port}( %{GREEDYDATA:exim_smtp_message})?
 
-EXIM_FIRST_LINE H=%{GREEDYDATA:exim_hostname} \[%{IP:exim_ip}\]:%{INT:exim_port} %{GREEDYDATA:exim_warning}
-
-EXIM_SECOND_LINE %{NOTSPACE:exim_direction} %{NOTSPACE:exim_sender_address}( R=%{NOTSPACE:exim_bounce_message_id})?( H=%{GREEDYDATA:exim_hostname})? \[%{IP:exim_ip_address}\]:%{INT:exim_port}( P=%{NOTSPACE:exim_received_protocol})?( X=%{NOTSPACE:exim_tls_cipher})?( CV=%{NOTSPACE:exim_tls_certificate_verified})?( S=%{NOTSPACE:exim_delivery_size})?( id=%{NOTSPACE:exim_message_id})?( T="%{GREEDYDATA:exim_subject}") for %{NOTSPACE:exim_for}
-
-EXIM_THIRD_LINE %{NOTSPACE:exim_direction} %{NOTSPACE:exim_user} %{NOTSPACE:exim}
-
-EXIM_RECEIVED <= %{NOTSPACE:exim_sender_address}( R=\<%{NOTSPACE:exim_bounce_message_id}\>)?( H=%{GREEDYDATA:exim_remote_host} \[%{IP:exim_remote_ip}\]:%{INT:exim_port})?( U=%{NOTSPACE:exim_user})? P=%{NOTSPACE:exim_protocol}( X=%{NOTSPACE:exim_tls_cipher})?( CV=%{NOTSPACE:exim_tls_certificate_verified})? S=%{INT:exim_message_size} id=%{NOTSPACE:exim_incoming_message_id} T="%{GREEDYDATA:exim_subject}"
+EXIM_RECEIVED <= %{NOTSPACE:exim_sender_address}( R=\<%{NOTSPACE:exim_bounce_message_id}\>)?( H=%{GREEDYDATA:exim_remote_host} \[%{IP:exim_remote_ip}\]:%{INT:exim_port})?( U=%{NOTSPACE:exim_user})? P=%{NOTSPACE:exim_protocol}( X=%{NOTSPACE:exim_tls_cipher})?( CV=%{NOTSPACE:exim_tls_certificate_verified})? S=%{INT:exim_message_size}( id=%{NOTSPACE:exim_incoming_message_id})? T="%{GREEDYDATA:exim_subject}"
 
 EXIM_DELIVERY => %{NOTSPACE:exim_final_delivery_address}( %{GREEDYDATA:exim_intermediate_delivery_addresses})? <%{GREEDYDATA:exim_original_delivery_address}> R=%{NOTSPACE:exim_router} T=%{NOTSPACE:exim_transport}( H=%{GREEDYDATA:exim_remote_host} \[%{IP:exim_remote_ip}\])?( X=%{NOTSPACE:exim_tls_cipher})?( CV=%{NOTSPACE:exim_tls_certificate_verified})?( C="%{GREEDYDATA:exim_smtp_confirmation}")?
 
@@ -22,4 +16,4 @@ EXIM_TRANSPORT %{EXIM_LOG_ID} (%{EXIM_DELIVERY}|%{EXIM_RECEIVED}|%{EXIM_DISCARDE
 
 EXIM_LOG_ID %{NOTSPACE:exim_log_id}
 
-SYSLOG_EXIM %{TIMESTAMP_ISO8601} (%{EXIM_TRANSPORT}|%{EXIM_SMTP})
+SYSLOG_EXIM %{TIMESTAMP_ISO8601:exim_timestamp} (%{EXIM_TRANSPORT}|%{EXIM_SMTP})
