@@ -72,3 +72,16 @@ def test_exim_failure():
     assert grok_output['exim_final_delivery_address'] == 'nobody@domain.com'
     assert grok_output['exim_router'] == 'virtual_aliases'
     assert grok_output['exim_failure_message'] == 'No Such User Here'
+
+def test_exim_smtp_outgoing():
+    """Test exim outgoing smtp"""
+    log_entry = '2017-06-24 23:36:21 1dOyLV-000359-20 SMTP connection outbound '\
+                '1498361781 1dOyLV-000359-20 domain.com user@externaldomain.com'
+    patterns_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), \
+                            '../patterns.d')
+    grok_output = Grok('%{SYSLOG_EXIM}', \
+                    custom_patterns_dir=patterns_directory).match(log_entry)
+    assert grok_output['exim_log_id'] == '1dOyLV-000359-20'
+    assert grok_output['exim_sender'] == 'domain.com'
+    assert grok_output['exim_external_recipient'] == 'user@externaldomain.com'
+    assert grok_output['exim_timestamp'] == '2017-06-24 23:36:21'

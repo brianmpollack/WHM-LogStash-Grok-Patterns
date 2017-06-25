@@ -1,4 +1,6 @@
-EXIM_SMTP SMTP connection from( %{GREEDYDATA:exim_url})? \[%{IP:exim_ip_address}\]:%{INT:exim_port}( %{GREEDYDATA:exim_smtp_message})?
+EXIM_SMTP_INCOMING SMTP connection from( %{GREEDYDATA:exim_url})? \[%{IP:exim_ip_address}\]:%{INT:exim_port}( %{GREEDYDATA:exim_smtp_message})?
+
+EXIM_SMTP_OUTGOING SMTP connection outbound( %{NOTSPACE})?( %{NOTSPACE})? %{NOTSPACE:exim_sender} %{NOTSPACE:exim_external_recipient}
 
 EXIM_RECEIVED <= %{NOTSPACE:exim_sender_address}( R=\<%{NOTSPACE:exim_bounce_message_id}\>)?( H=%{GREEDYDATA:exim_remote_host} \[%{IP:exim_remote_ip}\]:%{INT:exim_port})?( U=%{NOTSPACE:exim_user})? P=%{NOTSPACE:exim_protocol}( X=%{NOTSPACE:exim_tls_cipher})?( CV=%{NOTSPACE:exim_tls_certificate_verified})? S=%{INT:exim_message_size}( id=%{NOTSPACE:exim_incoming_message_id})? T="%{GREEDYDATA:exim_subject}"
 
@@ -12,8 +14,8 @@ EXIM_FAILURE \*\* %{NOTSPACE:exim_final_delivery_address}( \<%{NOTSPACE:exim_ori
 
 EXIM_COMPLETED Completed
 
-EXIM_TRANSPORT %{EXIM_LOG_ID} (%{EXIM_DELIVERY}|%{EXIM_RECEIVED}|%{EXIM_DISCARDED}|%{EXIM_DEFERRED}|%{EXIM_FAILURE}|%{EXIM_COMPLETED})
+EXIM_TRANSPORT %{EXIM_LOG_ID} (%{EXIM_DELIVERY}|%{EXIM_RECEIVED}|%{EXIM_DISCARDED}|%{EXIM_DEFERRED}|%{EXIM_FAILURE}|%{EXIM_COMPLETED}|%{EXIM_SMTP_OUTGOING})
 
 EXIM_LOG_ID %{NOTSPACE:exim_log_id}
 
-SYSLOG_EXIM %{TIMESTAMP_ISO8601:exim_timestamp} (%{EXIM_TRANSPORT}|%{EXIM_SMTP})
+SYSLOG_EXIM %{TIMESTAMP_ISO8601:exim_timestamp} (%{EXIM_TRANSPORT}|%{EXIM_SMTP_INCOMING})
